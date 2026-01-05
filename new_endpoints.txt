@@ -1,0 +1,72 @@
+# Add these new endpoints to backend/main.py before the Health Check section
+
+# ============= New Analytics Endpoints =============
+
+@app.get("/analytics/user-performance/{user_id}")
+def get_user_performance_endpoint(
+    user_id: int,
+    period: str = Query(..., description="Period in format YYYY-MM"),
+    db: Session = Depends(auth.get_db),
+    current_user: models.User = Depends(is_commerciale)
+):
+    """Get performance metrics for a specific user"""
+    from backend import analytics_enrichment
+    metrics = analytics_enrichment.get_user_performance(db, user_id, period)
+    if not metrics:
+        raise HTTPException(status_code=404, detail="No metrics found for this period")
+    return metrics
+
+
+@app.get("/analytics/team-performance")
+def get_team_performance_endpoint(
+    period: str = Query(..., description="Period in format YYYY-MM"),
+    db: Session = Depends(auth.get_db),
+    current_user: models.User = Depends(is_commerciale)
+):
+    """Get performance metrics for all team members"""
+    from backend import analytics_enrichment
+    return analytics_enrichment.get_team_performance(db, period)
+
+
+@app.get("/analytics/workflow-timing/{year}")
+def get_workflow_timing_endpoint(
+    year: int,
+    db: Session = Depends(auth.get_db),
+    current_user: models.User = Depends(get_current_active_user)
+):
+    """Get workflow timing statistics by phase"""
+    from backend import analytics_enrichment
+    return analytics_enrichment.calculate_workflow_timing_stats(db, year)
+
+
+@app.get("/analytics/bottlenecks")
+def get_bottlenecks_endpoint(
+    threshold_hours: float = Query(48, description="Alert threshold in hours"),
+    db: Session = Depends(auth.get_db),
+    current_user: models.User = Depends(get_current_active_user)
+):
+    """Get alerts for stuck offers in workflow"""
+    from backend import analytics_enrichment
+    return analytics_enrichment.get_bottleneck_alerts(db, threshold_hours)
+
+
+@app.get("/analytics/seasonal-trends/{year}")
+def get_seasonal_trends_endpoint(
+    year: int,
+    db: Session = Depends(auth.get_db),
+    current_user: models.User = Depends(get_current_active_user)
+):
+    """Get seasonal trends and monthly patterns"""
+    from backend import analytics_enrichment
+    return analytics_enrichment.calculate_seasonal_trends(db, year)
+
+
+@app.get("/analytics/client-loyalty/{year}")
+def get_client_loyalty_endpoint(
+    year: int,
+    db: Session = Depends(auth.get_db),
+    current_user: models.User = Depends(get_current_active_user)
+):
+    """Get client loyalty metrics"""
+    from backend import analytics_enrichment
+    return analytics_enrichment.calculate_client_loyalty(db, year)

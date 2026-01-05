@@ -1,0 +1,25 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node modules
+node_modules/
+dist/
+build/
+
+# Database
+# sql_app.db (Uncomment if you don't want to push the database)
+
+# IDE / System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

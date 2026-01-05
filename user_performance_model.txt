@@ -1,0 +1,29 @@
+# Add this to the end of backend/models.py after the Holiday model
+
+class UserPerformanceMetrics(Base):
+    """Track user performance metrics over time"""
+    __tablename__ = "user_performance_metrics"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    period = Column(String(7), nullable=False)  # Format: "2024-01", "2024-02", etc.
+    
+    # Performance metrics
+    offers_handled = Column(Integer, default=0)
+    avg_processing_time_hours = Column(Float, default=0.0)
+    success_rate = Column(Float, default=0.0)  # Percentage of successful offers
+    current_workload = Column(Integer, default=0)  # Active offers assigned
+    
+    # Timing metrics
+    avg_response_time_hours = Column(Float, default=0.0)
+    total_hours_worked = Column(Float, default=0.0)
+    
+    # Quality metrics
+    declined_count = Column(Integer, default=0)
+    accepted_count = Column(Integer, default=0)
+    
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    user = relationship("User")

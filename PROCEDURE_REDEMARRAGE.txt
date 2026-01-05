@@ -1,0 +1,37 @@
+===========================================
+  PROCEDURE COMPLETE DE REDEMARRAGE M54
+===========================================
+
+ETAPE 1: ARRETER TOUS LES PROCESSUS
+------------------------------------
+1. Executez: stop_all.bat
+2. Attendez que tous les processus soient arretes
+
+ETAPE 2: RELANCER L'APPLICATION
+--------------------------------
+1. Executez: start_app.bat
+2. Attendez 5 secondes que le backend demarre
+3. Deux fenetres vont s'ouvrir:
+   - "M54 Backend" (ne pas fermer)
+   - "M54 Frontend" (ne pas fermer)
+
+ETAPE 3: SE CONNECTER
+---------------------
+1. Ouvrez votre navigateur
+2. Allez sur: http://localhost:5173
+   OU sur: http://192.168.1.181:5173
+3. Connectez-vous avec:
+   Username: admin
+   Password: 123
+
+ETAPE 4: VERIFIER
+-----------------
+Vous devriez maintenant voir:
+- Dashboard avec vos 1817 offres
+- Graphiques "Motivi" remplis dans l'onglet "Analisi Business"
+- Liste complete des clients dans "Gestione Clienti"
+
+===========================================
+SI CA NE FONCTIONNE TOUJOURS PAS:
+Regardez dans la fenetre "M54 Backend" s'il y a des messages d'erreur en rouge
+===========================================

@@ -1,0 +1,94 @@
+/* Enhanced dropdown navigation styles */
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown .nav-link {
+    cursor: pointer;
+    position: relative;
+    padding-right: 24px !important;
+}
+
+/* Add dropdown arrow indicator */
+.nav-dropdown .nav-link::after {
+    content: '▼';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .nav-link::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    min-width: 240px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    border-radius: 12px;
+    margin-top: 8px;
+    padding: 8px 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav-dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-content a {
+    color: #e2e8f0;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    border-left: 3px solid transparent;
+}
+
+.dropdown-content a:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-left-color: #3b82f6;
+    padding-left: 24px;
+    color: #60a5fa;
+}
+
+.dropdown-content a.active {
+    background: rgba(59, 130, 246, 0.2);
+    border-left-color: #3b82f6;
+    color: #60a5fa;
+    font-weight: 500;
+}
+
+/* Smooth appearance animation */
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-dropdown:hover .dropdown-content {
+    animation: dropdownSlide 0.3s ease forwards;
+}
